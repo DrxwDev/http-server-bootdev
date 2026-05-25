@@ -24,3 +24,7 @@ func (c *BootController) App(ctx *gin.Context) {
 func (c *BootController) Metrics(ctx *gin.Context) {
 	ctx.Status(http.StatusOK)
 }
+
+func (c *BootController) Healthz(ctx *gin.Context) {
+	ctx.Status(http.StatusOK)
+}

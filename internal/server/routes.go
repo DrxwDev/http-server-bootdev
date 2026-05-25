@@ -9,5 +9,6 @@ import (
 func Routes(router *gin.Engine, bootdev *bootdev.BootController, apiConfig *middlewares.APIConfig) {
 	router.GET("/app", middlewares.CountMiddleware(apiConfig), bootdev.App)
 	router.GET("/metrics", middlewares.MetricsMiddleware(apiConfig), bootdev.Metrics)
-	router.GET("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
+	router.GET("/healthz", bootdev.Healthz)
+	router.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
 }
