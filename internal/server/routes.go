@@ -7,8 +7,13 @@ import (
 )
 
 func Routes(router *gin.Engine, bootdev *bootdev.BootController, apiConfig *middlewares.APIConfig) {
-	router.GET("/app", middlewares.CountMiddleware(apiConfig), bootdev.App)
-	router.GET("/metrics", middlewares.MetricsMiddleware(apiConfig), bootdev.Metrics)
-	router.GET("/healthz", bootdev.Healthz)
-	router.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
+	app := router.Group("/app", middlewares.CountMiddleware(apiConfig))
+	api := router.Group("/api")
+
+	app.GET("", bootdev.App)
+	app.GET("/assets", bootdev.Assets)
+
+	api.GET("/metrics", middlewares.MetricsMiddleware(apiConfig), bootdev.Metrics)
+	api.GET("/healthz", bootdev.Healthz)
+	api.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
 }

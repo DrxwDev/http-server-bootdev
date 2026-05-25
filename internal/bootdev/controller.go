@@ -17,8 +17,11 @@ func (c *BootController) Reset(ctx *gin.Context) {
 }
 
 func (c *BootController) App(ctx *gin.Context) {
-	ctx.Header("Cache-Control", "no-cache")
 	ctx.String(http.StatusOK, "Welcome to Chirpy")
+}
+
+func (c *BootController) Assets(ctx *gin.Context) {
+	ctx.String(http.StatusOK, "<a href=\"logo.png\">logo.png</a>")
 }
 
 func (c *BootController) Metrics(ctx *gin.Context) {
@@ -26,5 +29,5 @@ func (c *BootController) Metrics(ctx *gin.Context) {
 }
 
 func (c *BootController) Healthz(ctx *gin.Context) {
-	ctx.Status(http.StatusOK)
+	ctx.String(http.StatusOK, "OK")
 }
