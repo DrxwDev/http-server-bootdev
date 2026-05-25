@@ -18,7 +18,11 @@ func (c *BootController) Index(ctx *gin.Context) {
 }
 
 func (c *BootController) Assets(ctx *gin.Context) {
-	ctx.Header("Content-Type", "image/png")
-	ctx.File("assets/logo.png")
+	ctx.File("assets/assets.html")
 	ctx.Status(http.StatusOK)
+}
+
+func (c *BootController) Health(ctx *gin.Context) {
+	ctx.Header("Content-Type", "text/plain; charset=utf-8")
+	ctx.String(http.StatusOK, "OK")
 }
