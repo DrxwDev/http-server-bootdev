@@ -6,6 +6,7 @@ import (
 	"github.com/DrxwDev/http-server/internal/bootdev"
 	"github.com/DrxwDev/http-server/internal/config"
 	"github.com/DrxwDev/http-server/internal/logger"
+	"github.com/DrxwDev/http-server/internal/middlewares"
 	"github.com/DrxwDev/http-server/internal/server"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
@@ -23,5 +24,6 @@ func main() {
 		logger.Module,
 		server.Module,
 		bootdev.Module,
+		middlewares.Module,
 	).Run()
 }
