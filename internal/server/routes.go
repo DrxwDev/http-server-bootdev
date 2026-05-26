@@ -8,12 +8,10 @@ import (
 
 func Routes(router *gin.Engine, bootdev *bootdev.BootController, apiConfig *middlewares.APIConfig) {
 	app := router.Group("/app", middlewares.CountMiddleware(apiConfig))
-	api := router.Group("/api")
+	admin := router.Group("/admin")
 
-	app.GET("", bootdev.App)
-	app.GET("/assets", bootdev.Assets)
+	app.GET("/", bootdev.App)
 
-	api.GET("/metrics", middlewares.MetricsMiddleware(apiConfig), bootdev.Metrics)
-	api.GET("/healthz", bootdev.Healthz)
-	api.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
+	admin.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
+	admin.GET("/metrics", middlewares.MetricsMiddleware(apiConfig))
 }
