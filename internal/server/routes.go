@@ -8,10 +8,9 @@ import (
 
 func Routes(router *gin.Engine, bootdev *bootdev.BootController, apiConfig *middlewares.APIConfig) {
 	app := router.Group("/app", middlewares.CountMiddleware(apiConfig))
-	admin := router.Group("/admin")
+	api := router.Group("/api")
 
 	app.GET("/", bootdev.App)
 
-	admin.POST("/reset", middlewares.ResetMiddleware(apiConfig), bootdev.Reset)
-	admin.GET("/metrics", middlewares.MetricsMiddleware(apiConfig))
+	api.POST("/validate_chirp", bootdev.ValidateChirp)
 }

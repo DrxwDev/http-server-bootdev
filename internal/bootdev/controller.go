@@ -31,3 +31,25 @@ func (c *BootController) Metrics(ctx *gin.Context) {
 func (c *BootController) Healthz(ctx *gin.Context) {
 	ctx.String(http.StatusOK, "OK")
 }
+
+func (c *BootController) ValidateChirp(ctx *gin.Context) {
+	var request RequestDTO
+
+	if err := ctx.ShouldBindJSON(&request); err != nil || request.Length() == 0 {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Something went wrong",
+		})
+		return
+	}
+
+	if request.Length() > 140 {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": "Chirp is too long",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"valid": true,
+	})
+}
