@@ -7,5 +7,6 @@ var Module = fx.Module(
 	"bootdev",
 	fx.Provide(
 		NewBootController,
+		NewBootService,
 	),
 )

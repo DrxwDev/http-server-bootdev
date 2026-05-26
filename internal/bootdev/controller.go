@@ -6,10 +6,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type BootController struct{}
+type BootController struct {
+	service BootService
+}
 
-func NewBootController() *BootController {
-	return &BootController{}
+func NewBootController(service BootService) *BootController {
+	return &BootController{
+		service: service,
+	}
 }
 
 func (c *BootController) Reset(ctx *gin.Context) {
@@ -49,7 +53,15 @@ func (c *BootController) ValidateChirp(ctx *gin.Context) {
 		return
 	}
 
+	chirpy, profane := c.service.CleanChirpy(ctx.Request.Context(), request.Body)
+	if profane {
+		ctx.JSON(http.StatusOK, gin.H{
+			"cleand_body": chirpy,
+		})
+		return
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
-		"valid": true,
+		"body": chirpy,
 	})
 }
