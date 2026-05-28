@@ -21,3 +21,9 @@ func LoadServer() ServerConfig {
 		MaxHeaderBytes:    1 << 20,
 	}
 }
+
+func LoadDatabase() DatabaseConfig {
+	return DatabaseConfig{
+		DBDsn: os.Getenv("DB_DSN"),
+	}
+}

@@ -5,6 +5,7 @@ import (
 
 	"github.com/DrxwDev/http-server/internal/bootdev"
 	"github.com/DrxwDev/http-server/internal/config"
+	"github.com/DrxwDev/http-server/internal/database"
 	"github.com/DrxwDev/http-server/internal/logger"
 	"github.com/DrxwDev/http-server/internal/middlewares"
 	"github.com/DrxwDev/http-server/internal/server"
@@ -25,5 +26,6 @@ func main() {
 		server.Module,
 		bootdev.Module,
 		middlewares.Module,
+		database.Module,
 	).Run()
 }
