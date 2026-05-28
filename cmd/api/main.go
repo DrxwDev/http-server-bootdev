@@ -9,6 +9,7 @@ import (
 	"github.com/DrxwDev/http-server/internal/logger"
 	"github.com/DrxwDev/http-server/internal/middlewares"
 	"github.com/DrxwDev/http-server/internal/server"
+	"github.com/DrxwDev/http-server/internal/users"
 	"github.com/joho/godotenv"
 	"go.uber.org/fx"
 )
@@ -27,5 +28,6 @@ func main() {
 		bootdev.Module,
 		middlewares.Module,
 		database.Module,
+		users.Module,
 	).Run()
 }

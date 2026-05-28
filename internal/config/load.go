@@ -7,8 +7,9 @@ import (
 
 func LoadApp() AppConfig {
 	return AppConfig{
-		HOST: os.Getenv("HOST"),
-		PORT: os.Getenv("PORT"),
+		HOST:     os.Getenv("HOST"),
+		PORT:     os.Getenv("PORT"),
+		PLATFORM: os.Getenv("PLATFORM"),
 	}
 }
 

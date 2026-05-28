@@ -8,5 +8,6 @@ var Module = fx.Module(
 	fx.Provide(
 		LoadApp,
 		LoadServer,
+		LoadDatabase,
 	),
 )

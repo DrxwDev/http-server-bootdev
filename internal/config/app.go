@@ -1,6 +1,7 @@
 package config
 
 type AppConfig struct {
-	HOST string
-	PORT string
+	HOST     string
+	PORT     string
+	PLATFORM string
 }
