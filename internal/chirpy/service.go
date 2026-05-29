@@ -8,6 +8,7 @@ import (
 type ChirpService interface {
 	CreateChirp(ctx context.Context, body, userID string) (Chirp, error)
 	CleanChirpy(ctx context.Context, chirpy string) string
+	FindAll(ctx context.Context) ([]Chirp, error)
 }
 
 type chirpService struct {
@@ -51,4 +52,8 @@ func (s *chirpService) CreateChirp(ctx context.Context, body string, userID stri
 	chirp := s.CleanChirpy(ctx, body)
 
 	return s.repo.CreateChirp(ctx, chirp, userID)
+}
+
+func (s *chirpService) FindAll(ctx context.Context) ([]Chirp, error) {
+	return s.repo.FindAll(ctx)
 }

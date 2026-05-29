@@ -32,3 +32,20 @@ func (c ChirpController) CreateChirp(ctx *gin.Context) {
 	dto := chirpDTO(chirp)
 	ctx.JSON(http.StatusCreated, dto)
 }
+
+func (c ChirpController) GetAll(ctx *gin.Context) {
+	list, err := c.service.FindAll(ctx.Request.Context())
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	chirpList := make([]ChirpResponseDTO, len(list))
+
+	for i, c := range list {
+		chirp := chirpDTO(c)
+		chirpList[i] = chirp
+	}
+
+	ctx.JSON(http.StatusOK, chirpList)
+}
