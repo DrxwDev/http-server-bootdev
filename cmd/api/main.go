@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/DrxwDev/http-server/internal/bootdev"
+	"github.com/DrxwDev/http-server/internal/chirpy"
 	"github.com/DrxwDev/http-server/internal/config"
 	"github.com/DrxwDev/http-server/internal/database"
 	"github.com/DrxwDev/http-server/internal/logger"
@@ -29,5 +30,6 @@ func main() {
 		middlewares.Module,
 		database.Module,
 		users.Module,
+		chirpy.Module,
 	).Run()
 }
