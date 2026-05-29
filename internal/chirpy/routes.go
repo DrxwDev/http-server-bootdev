@@ -9,4 +9,5 @@ func ChirpRoutes(router *gin.Engine, controller ChirpController) {
 
 	routes.POST("", controller.CreateChirp)
 	routes.GET("", controller.GetAll)
+	routes.GET("/:id", controller.FindByID)
 }

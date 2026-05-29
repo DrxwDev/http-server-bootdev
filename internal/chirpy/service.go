@@ -9,6 +9,7 @@ type ChirpService interface {
 	CreateChirp(ctx context.Context, body, userID string) (Chirp, error)
 	CleanChirpy(ctx context.Context, chirpy string) string
 	FindAll(ctx context.Context) ([]Chirp, error)
+	FindByID(ctx context.Context, id string) (Chirp, error)
 }
 
 type chirpService struct {
@@ -56,4 +57,12 @@ func (s *chirpService) CreateChirp(ctx context.Context, body string, userID stri
 
 func (s *chirpService) FindAll(ctx context.Context) ([]Chirp, error) {
 	return s.repo.FindAll(ctx)
+}
+
+func (s *chirpService) FindByID(ctx context.Context, id string) (Chirp, error) {
+	if id == "" {
+		return Chirp{}, ErrChirpIDNotFound
+	}
+
+	return s.repo.FindByID(ctx, id)
 }

@@ -2,14 +2,15 @@ package chirpy
 
 import (
 	"context"
-	"errors"
 
 	"github.com/DrxwDev/http-server/internal/database"
+	"github.com/google/uuid"
 )
 
 type ChirpRepository interface {
 	CreateChirp(ctx context.Context, body, userID string) (Chirp, error)
 	FindAll(ctx context.Context) ([]Chirp, error)
+	FindByID(ctx context.Context, id string) (Chirp, error)
 }
 
 type chirpRepository struct {
@@ -37,7 +38,7 @@ func (r *chirpRepository) CreateChirp(ctx context.Context, body string, userID s
 func (r *chirpRepository) FindAll(ctx context.Context) ([]Chirp, error) {
 	list, err := r.q.GetAllChirps(ctx)
 	if err != nil {
-		return nil, errors.New("error getting all chirps")
+		return nil, ErrChirpsListNotFound
 	}
 
 	chirpList := make([]Chirp, len(list))
@@ -48,4 +49,20 @@ func (r *chirpRepository) FindAll(ctx context.Context) ([]Chirp, error) {
 	}
 
 	return chirpList, nil
+}
+
+func (r *chirpRepository) FindByID(ctx context.Context, id string) (Chirp, error) {
+	uid, err := uuid.Parse(id)
+	if err != nil {
+		return Chirp{}, ErrChirpIDNotParsed
+	}
+
+	chirp, err := r.q.FindChirp(ctx, uid)
+	if err != nil {
+		return Chirp{}, ErrChirpNotFound
+	}
+
+	find := chirpCreated(chirp)
+
+	return find, nil
 }

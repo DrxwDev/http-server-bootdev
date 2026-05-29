@@ -49,3 +49,15 @@ func (c ChirpController) GetAll(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, chirpList)
 }
+
+func (c ChirpController) FindByID(ctx *gin.Context) {
+	id := ctx.Param("id")
+
+	chirp, err := c.service.FindByID(ctx.Request.Context(), id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, chirpDTO(chirp))
+}
